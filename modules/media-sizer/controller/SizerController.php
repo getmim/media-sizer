@@ -8,6 +8,7 @@
 namespace MediaSizer\Controller;
 
 use LibMedia\Library\Local;
+use LibUpload\Model\Media;
 
 class SizerController extends \MediaSizer\Controller
 {
@@ -31,6 +32,10 @@ class SizerController extends \MediaSizer\Controller
             ];
             $opt->file = preg_replace('!_([0-9]+)x([0-9]+)\.([a-z]+)$!i', '.$3', $file);
         }
+
+        $media = Media::getOne(['path'=>$opt->file]);
+        $urls  = json_decode($media->urls);
+        $opt->file = $urls[0];
 
         $result = Local::get($opt);
         if(!$result)
