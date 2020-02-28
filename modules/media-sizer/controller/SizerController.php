@@ -34,6 +34,8 @@ class SizerController extends \MediaSizer\Controller
         }
 
         $media = Media::getOne(['path'=>$opt->file]);
+        if(!$media)
+            return $this->show404();
         $urls  = json_decode($media->urls);
         $opt->file = $urls[0];
 
