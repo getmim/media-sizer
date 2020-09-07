@@ -39,6 +39,7 @@ class SizerController extends \MediaSizer\Controller
         $urls  = json_decode($media->urls);
         $opt->file = $urls[0];
 
+        $opt->force = true;
         $result = Local::get($opt);
         if(!$result)
             return $this->show500();
