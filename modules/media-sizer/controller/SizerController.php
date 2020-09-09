@@ -17,7 +17,7 @@ class SizerController extends \MediaSizer\Controller
         $file = implode('/', $file);
 
         $webp = false;
-        $file = preg_replace('!\.webp$!', '', $file, -1, $count);
+        $file = preg_replace('!(\.[a-z]+)\.webp$!', '$1', $file, -1, $count);
         if($count)
             $webp = true;
 
