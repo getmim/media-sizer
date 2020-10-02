@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'media-sizer',
-    '__version' => '0.1.0',
+    '__version' => '0.1.1',
     '__git' => 'git@github.com:getmim/media-sizer.git',
     '__license' => 'MIT',
     '__author' => [

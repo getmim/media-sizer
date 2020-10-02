@@ -72,8 +72,21 @@ class SizerController extends \MediaSizer\Controller
 
         $path = substr($final_url, $host_len);
         $target_file = realpath(BASEPATH . '/' . $base->local . '/' . $path);
-        if(!$target_file)
-            return $this->show404();
+        if(!$target_file || !is_file($target_file)){
+            $opt->compression = $comp;
+            $args = isset($opt->size)
+                ? [$opt->size->width, $opt->size->height]
+                : [null, null];
+            if($comp)
+                $args[] = $comp;
+
+            if(!call_user_func_array([$object, 'reManipulate'], $args))
+                return $this->show404();
+
+            $target_file = realpath(BASEPATH . '/' . $base->local . '/' . $path);
+            if(!$target_file)
+                return $this->show404();
+        }
 
         $file_mime = mime_content_type($target_file);
         header('Content-Type: ' . $file_mime);
